@@ -11,8 +11,8 @@ const MEMBERS = [
   { id: 'ALL', label: 'ALL' },
   { id: 'RUKA', label: 'RUKA 🦥' },
   { id: 'PHARITA', label: 'PHARITA 🦌' },
-  { id: 'AHYEON', label: 'AHYEON 🦋' },
   { id: 'ASA', label: 'ASA 🐰' },
+  { id: 'AHYEON', label: 'AHYEON 🦋' },
   { id: 'RAMI', label: 'RAMI 🐬' },
   { id: 'RORA', label: 'RORA 🐼' },
   { id: 'CHIQUITA', label: 'CHIQUITA 🐈‍⬛' }
