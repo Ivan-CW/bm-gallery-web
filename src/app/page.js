@@ -275,7 +275,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchImages() {
-      // 🌟 这里就是我们修改的重点：按倒序抓取最新的 3000 条数据！
+      // 🌟 按倒序抓取最新的 3000 条数据
       const { data: records, error } = await supabase
         .from('asa_gallery')
         .select('*')
@@ -285,8 +285,12 @@ export default function Home() {
       if (!error && records) {
         const groupedPostsMap = new Map();
         
+        // 🌟 核心修改：提取并保存真实的媒体序号，供后续排序使用
         records.forEach((record) => {
-          const baseId = record.tweet_id.split('_')[0];
+          const parts = record.tweet_id.split('_');
+          const baseId = parts[0];
+          const mediaIdx = parseInt(parts[parts.length - 1], 10); 
+
           if (!groupedPostsMap.has(baseId)) {
             groupedPostsMap.set(baseId, {
               id: record.tweet_id, 
@@ -297,8 +301,14 @@ export default function Home() {
           }
           groupedPostsMap.get(baseId).media.push({
             url: record.image_url,
-            type: record.media_type || 'image' 
+            type: record.media_type || 'image',
+            originalIdx: mediaIdx 
           });
+        });
+
+        // 🌟 核心修改：保证每个帖子内的媒体按原始顺序排列
+        groupedPostsMap.forEach((post) => {
+          post.media.sort((a, b) => a.originalIdx - b.originalIdx);
         });
 
         const sortedPosts = Array.from(groupedPostsMap.values()).sort((a, b) => {
