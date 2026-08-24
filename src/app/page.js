@@ -275,10 +275,12 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchImages() {
+      // 🌟 这里就是我们修改的重点：按倒序抓取最新的 3000 条数据！
       const { data: records, error } = await supabase
         .from('asa_gallery')
         .select('*')
-        .range(0, 4999); // 👈 加上这行，把获取上限扩大到 5000 条！
+        .order('created_at', { ascending: false })
+        .limit(3000);
 
       if (!error && records) {
         const groupedPostsMap = new Map();
