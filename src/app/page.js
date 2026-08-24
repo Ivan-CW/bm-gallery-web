@@ -277,7 +277,8 @@ export default function Home() {
     async function fetchImages() {
       const { data: records, error } = await supabase
         .from('asa_gallery')
-        .select('*');
+        .select('*')
+        .range(0, 4999); // 👈 加上这行，把获取上限扩大到 5000 条！
 
       if (!error && records) {
         const groupedPostsMap = new Map();
