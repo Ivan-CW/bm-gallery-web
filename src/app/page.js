@@ -276,11 +276,12 @@ export default function Home() {
   useEffect(() => {
     async function fetchImages() {
       // 🌟 按倒序抓取最新的 3000 条数据
+      // 🌟 魔法 2：上限拉到 10000 条，配合下滑无限加载，完全不怕装不下！
       const { data: records, error } = await supabase
         .from('asa_gallery')
         .select('*')
-        .order('created_at', { ascending: false })
-        .limit(3000);
+        .order('tweet_id', { ascending: false })
+        .limit(10000);
 
       if (!error && records) {
         const groupedPostsMap = new Map();
