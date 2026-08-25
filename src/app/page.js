@@ -389,7 +389,7 @@ export default function Home() {
           BABYMONSTER GALLERY
         </h1>
         <p className="text-gray-400 text-sm md:text-base italic cursor-default">
-          Monsters in the making.
+          For every moment, every era, every BABYMONSTER.
         </p>
       </header>
 
